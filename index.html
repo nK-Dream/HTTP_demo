@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./axios.min.js"></script>
+</head>
+
+<body>
+    <button id="btn1">按钮1--发送get请求--不带参数</button><br><br>
+    <button id="btn2">按钮2--发送get请求--带query参数</button><br><br>
+    <button id="btn3">按钮3--发送get请求--带params参数</button><br><br>
+    <button id="btn4">按钮4--发送post请求--带query参数</button><br><br>
+    <button id="btn5">按钮5--发送post请求--带params参数</button><br><br>
+    <button id="btn6">按钮6--发送post请求--带请求体参数</button><br><br>
+    <button id="btn7">按钮7--发送post请求--带query参数、params参数、请求体参数</button><br><br>
+
+    <script>
+        const btn1 = document.querySelector("#btn1");
+        const btn2 = document.querySelector("#btn2");
+        const btn3 = document.querySelector("#btn3");
+        const btn4 = document.querySelector("#btn4");
+        const btn5 = document.querySelector("#btn5");
+        const btn6 = document.querySelector("#btn6");
+        const btn7 = document.querySelector("#btn7");
+
+
+        btn1.onclick = () => {
+            //发送get请求，不携带参数，完整写法
+            /* axios({
+                url: 'http://localhost:8080/test1'
+            }).then(
+                (res) => {
+                    console.log(res.data);
+                },
+                (err) => {
+                    console.log(err.message);
+                }
+            ) */
+            //发送get请求，不携带参数，精简写法
+            axios.get('http://localhost:8080/test1').then(
+                (res) => {
+                    console.log(res.data);
+                },
+                (err) => {
+                    console.log(err.message);
+                }
+            )
+        }
+        btn2.onclick = () => {
+            //发送get请求，携带query参数，完整写法
+            axios({
+                url: 'http://localhost:8080/test2',
+                params:{//此处写的是params,但携带的是query参数
+                    name:'小明', 
+                    age:18,
+                    sex:'男'
+                }
+            }).then(
+                (res) => {
+                    console.log(res.data);
+                },
+                (err) => {
+                    console.log(err.message);
+                }
+            )
+            
+            //发送get请求，携带query参数，精简写法
+            /* axios.get('http://localhost:8080/test2',{params: {name: '小明',age: 18,sex: '男'}}).then(
+                (res) => {
+                    console.log(res.data);
+                },
+                (err) => {
+                    console.log(err.message);
+                }
+            ) */
+
+        }
+        btn3.onclick = () => {
+                //发送get请求，携带params参数，完整写法
+                /* axios({
+                    url: 'http://localhost:8080/test3/小明/18/男',
+                }).then(
+                    (res) => {
+                        console.log(res.data);
+                    },
+                    (err) => {
+                        console.log(err.message);
+                    }
+                ) */
+
+                //发送get请求，携带params参数，精简写法
+                axios.get('http://localhost:8080/test3/小明/18/男').then(
+                    (res) => {
+                        console.log(res.data);
+                    },
+                    (err) => {
+                        console.log(err.message);
+                    }
+                )
+
+            }
+        btn4.onclick = () => {
+                //发送post请求，携带query参数，完整写法
+                axios({
+                    url: 'http://localhost:8080/test4',
+                    method:'POST',
+                    params: {
+                        name: '小明',
+                        age: 18,
+                        sex: '男'
+                    }
+                }).then(
+                    (res) => {
+                        console.log(res.data);
+                    },
+                    (err) => {
+                        console.log(err.message);
+                    }
+                )
+
+                // 发送post请求，携带query参数，  不能简写会导致参数丢失！！
+                /* axios.post('http://localhost:8080/test4',{params: {name: '小明',age: 18,sex: '男'}}).then(
+                    (res) => {
+                        console.log(res.data);
+                    },
+                    (err) => {
+                        console.log(err.message);
+                    }
+                ) */
+
+            }
+        btn5.onclick = () => {
+                //发送post请求，携带params参数，完整写法
+                /* axios({
+                    url: 'http://localhost:8080/test5/小明/18/男',
+                    method: 'POST',
+                }).then(
+                    (res) => {
+                        console.log(res.data);
+                    },
+                    (err) => {
+                        console.log(err.message);
+                    }
+                ) */
+
+                // 发送post请求，携带params参数，  精简写法
+                axios.post('http://localhost:8080/test5/小明/18/男').then(
+                    (res) => {
+                        console.log(res.data);
+                    },
+                    (err) => {
+                        console.log(err.message);
+                    }
+                )
+
+            }
+        btn6.onclick = () => {
+            //发送post请求，携带请求体参数，完整写法
+            /* axios({
+                url: 'http://localhost:8080/test6',
+                method: 'POST',
+                // data: {       //data的值如果请求体是个对象，那么请求参数自动使用json编码
+                //     name: '小明',
+                //     age: 18,
+                //     sex: '男'
+                // }
+                data:'name=小明&age=18&sex=男' //data的值如果是字符串，那么请求参数自动使用urlencoded编码
+            }).then(
+                (res) => {
+                    console.log(res.data);
+                },
+                (err) => {
+                    console.log(err.message);
+                }
+            ) */
+
+            // 发送post请求，携带请求体参数，  精简写法
+            axios.post('http://localhost:8080/test6',{
+                    name: '小明',
+                    age: 18,
+                    sex: '男'
+                }).then(
+                (res) => {
+                    console.log(res.data);
+                },
+                (err) => {
+                    console.log(err.message);
+                }
+            )
+
+        }
+        btn7.onclick = () => {
+                //发送post请求，携带query参数、params参数、请求体参数
+                axios({
+                    url: 'http://localhost:8080/test7/18',
+                    method: 'POST',
+                    params:{
+                        name:'小明'
+                    },
+                    data: {
+                        sex: '男'
+                    }
+                }).then(
+                    (res) => {
+                        console.log(res.data);
+                    },
+                    (err) => {
+                        console.log(err.message);
+                    }
+                )
+
+            }
+    </script>
+</body>
+
+</html>
